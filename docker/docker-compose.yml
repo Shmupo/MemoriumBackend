@@ -48,7 +48,7 @@ services:
     depends_on:
       - kafka
     environment:
-      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092  # Kafka service name and internal port
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     networks:
       - kafka_network
 
@@ -60,7 +60,7 @@ services:
     depends_on:
       - kafka
     environment:
-      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092  # Kafka service name and internal port
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     networks:
       - kafka_network
 
