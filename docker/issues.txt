@@ -1,0 +1,3 @@
+PROBLEM:
+    Producer and consumer keep trying to connect to localhost:29092, not kafka:9092 when inside a container
+    When altering the application.yml to use kafka:9092 as bootstrap_server, they will not build, and hence, cannot be used...

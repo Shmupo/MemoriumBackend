@@ -1,0 +1,12 @@
+server:
+  port: 9003
+
+spring:
+  kafka:
+    producer:
+      acks: -1
+      bootstrap-servers: localhost:29092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: false # GOD DAM THIS TOOK ME HOURS TO FIX, this is why consumer keeps trying to access the producer's order class
