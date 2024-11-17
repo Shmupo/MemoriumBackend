@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MemoriumBackend.iml" filepath="$PROJECT_DIR$/MemoriumBackend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/catalog_service/src/main/main.iml" filepath="$PROJECT_DIR$/catalog_service/src/main/main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/catalog_service/src/test/test.iml" filepath="$PROJECT_DIR$/catalog_service/src/test/test.iml" />
     </modules>
   </component>
 </project>

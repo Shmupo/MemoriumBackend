@@ -1,5 +1,8 @@
 version: '3.8'
 
+x-project:
+  name: MemeMorium Stack
+
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
@@ -16,7 +19,7 @@ services:
     depends_on:
       - zookeeper
     ports:
-      - "29092:29092"
+      - "29092:9092"
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -27,18 +30,18 @@ services:
     networks:
       - kafka_network
 
-  kafka-ui:
-    image: provectuslabs/kafka-ui:latest
-    depends_on:
-      - kafka
-    ports:
-      - "8090:8080"
-    environment:
-      KAFKA_CLUSTERS_0_NAME: local
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
-      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
-    networks:
-      - kafka_network
+#  kafka-ui:
+#    image: provectuslabs/kafka-ui:latest
+#    depends_on:
+#      - kafka
+#    ports:
+#      - "8090:8080"
+#    environment:
+#      KAFKA_CLUSTERS_0_NAME: local
+#      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+#      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
+#    networks:
+#      - kafka_network
 
   producer:
     build:
@@ -48,7 +51,7 @@ services:
     depends_on:
       - kafka
     environment:
-      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
     networks:
       - kafka_network
 
@@ -60,7 +63,7 @@ services:
     depends_on:
       - kafka
     environment:
-      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
     networks:
       - kafka_network
 
