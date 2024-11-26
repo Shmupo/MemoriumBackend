@@ -30,6 +30,37 @@ services:
     networks:
       - kafka_network
 
+  mysql:
+    image: mysql:latest
+    container_name: memoriumdb
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: memoriumdb
+    ports:
+      - "3308:3306" # host port : container port
+    networks:
+      - order_network
+    healthcheck: # need to allow mysql some time to initialize for other services to connect to it
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "--silent" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  order-service:
+    build:
+      context: ../order_service
+    ports:
+      - "9004:9004"
+    depends_on:
+      mysql: # only connect once mysql is fully initialized
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://memoriumdb:3306/memoriumdb
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+    networks:
+      - order_network
+
 #  kafka-ui:
 #    image: provectuslabs/kafka-ui:latest
 #    depends_on:
@@ -69,4 +100,6 @@ services:
 
 networks:
   kafka_network:
+    driver: bridge
+  order_network:
     driver: bridge
